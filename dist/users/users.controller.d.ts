@@ -6,13 +6,16 @@ export declare class UsersController {
     private readonly usersService;
     constructor(usersService: UsersService);
     findAll(): Promise<User[]>;
-    findById(id: string): Promise<"El usuario no existe" | {
-        pokemon: any;
+    findById(id: string): Promise<{
+        rick: {
+            name: any;
+            species: any;
+        }[];
         id: number;
         name: string;
         surname: string;
         age: number;
-        pokemonIds: number[];
+        rickIds: number[];
     } | null>;
     create(user: createUserDto): Promise<User>;
     update(id: string, user: updateUserDto): Promise<import("typeorm").UpdateResult>;

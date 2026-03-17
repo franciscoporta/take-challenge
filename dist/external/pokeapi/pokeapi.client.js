@@ -23,7 +23,7 @@ let PokeApiClient = class PokeApiClient {
     async getPokemon() {
         try {
             const { data } = await (0, rxjs_1.firstValueFrom)(this.http.get(this.baseUrl));
-            return { data };
+            return data.results;
         }
         catch (error) {
             return error;

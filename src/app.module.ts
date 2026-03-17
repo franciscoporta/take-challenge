@@ -3,7 +3,6 @@ import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { UsersModule } from "./users/users.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { PokemonModule } from "./pokemon/pokemon.module";
 import { ConfigModule } from "@nestjs/config";
 
 @Module({
@@ -21,7 +20,6 @@ import { ConfigModule } from "@nestjs/config";
       migrationsRun: true,
     }),
     UsersModule,
-    PokemonModule,
   ],
   controllers: [AppController],
   providers: [AppService],

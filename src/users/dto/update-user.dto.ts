@@ -13,6 +13,6 @@ export class updateUserDto {
   @ApiPropertyOptional({ description: "Edad del usuario", example: 30 })
   age?: number;
 
-  @ApiPropertyOptional({ description: "Id del pokemon", example: 1 })
-  pokemonIds?: number[];
+  @ApiPropertyOptional({ description: "Id del rick", example: 1 })
+  rickIds?: number[];
 }

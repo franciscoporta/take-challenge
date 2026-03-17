@@ -3,5 +3,5 @@ export declare class User {
     name: string;
     surname: string;
     age: number;
-    pokemonIds: number[];
+    rickIds: number[];
 }

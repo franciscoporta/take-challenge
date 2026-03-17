@@ -36,10 +36,10 @@ __decorate([
     __metadata("design:type", Number)
 ], User.prototype, "age", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: "Ids de los pokemones", example: 1 }),
-    (0, typeorm_1.Column)("simple-json"),
+    (0, swagger_1.ApiProperty)({ description: "Ids de los rick", example: 1 }),
+    (0, typeorm_1.Column)("json"),
     __metadata("design:type", Array)
-], User.prototype, "pokemonIds", void 0);
+], User.prototype, "rickIds", void 0);
 exports.User = User = __decorate([
     (0, typeorm_1.Entity)()
 ], User);
