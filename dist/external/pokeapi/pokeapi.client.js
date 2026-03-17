@@ -11,20 +11,39 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PokeApiClient = void 0;
 const common_1 = require("@nestjs/common");
+const config_1 = require("@nestjs/config");
 const axios_1 = require("@nestjs/axios");
 const rxjs_1 = require("rxjs");
 let PokeApiClient = class PokeApiClient {
-    constructor(http) {
+    constructor(http, config) {
         this.http = http;
+        this.config = config;
+        this.baseUrl = this.config.getOrThrow("POKEMON_API_URL");
     }
     async getPokemon() {
-        const { data } = await (0, rxjs_1.firstValueFrom)(this.http.get(`https://pokeapi.co/api/v2/pokemon`));
-        return data;
+        try {
+            const { data } = await (0, rxjs_1.firstValueFrom)(this.http.get(this.baseUrl));
+            return { data };
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async getPokemonById(id) {
+        console.log("id:", id);
+        try {
+            const data = this.http.get(this.config.getOrThrow(`https://pokeapi.co/api/v2/pokemon-form/${id}`));
+            return data;
+        }
+        catch (error) {
+            return error;
+        }
     }
 };
 exports.PokeApiClient = PokeApiClient;
 exports.PokeApiClient = PokeApiClient = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [axios_1.HttpService])
+    __metadata("design:paramtypes", [axios_1.HttpService,
+        config_1.ConfigService])
 ], PokeApiClient);
 //# sourceMappingURL=pokeapi.client.js.map

@@ -17,9 +17,11 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const user_entity_1 = require("./user.entity");
 const typeorm_2 = require("typeorm");
+const pokeapi_client_1 = require("../external/pokeapi/pokeapi.client");
 let UsersService = class UsersService {
-    constructor(userRepository) {
+    constructor(userRepository, pokemonClient) {
         this.userRepository = userRepository;
+        this.pokemonClient = pokemonClient;
     }
     async findAll() {
         return await this.userRepository.find();
@@ -28,7 +30,13 @@ let UsersService = class UsersService {
         if (!id)
             throw new Error("ID is required");
         const findUser = await this.userRepository.findOne({ where: { id } });
-        return findUser ? findUser : "El usuario no existe";
+        if (!findUser)
+            return null;
+        const findPokemonByUser = await this.pokemonClient.getPokemonById(findUser.pokemonIds);
+        console.log("logger:", findPokemonByUser);
+        return findUser
+            ? { ...findUser, pokemon: findPokemonByUser }
+            : "El usuario no existe";
     }
     async create(user) {
         const newUser = this.userRepository.create(user);
@@ -45,6 +53,7 @@ exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(user_entity_1.User)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        pokeapi_client_1.PokeApiClient])
 ], UsersService);
 //# sourceMappingURL=users.service.js.map
