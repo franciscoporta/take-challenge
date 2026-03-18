@@ -3,12 +3,13 @@ import { UsersController } from "./users.controller";
 import { UsersService } from "./users.service";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { User } from "./user.entity";
-import { PokeApiClient } from "src/external/pokeapi/pokeapi.client";
+
 import { HttpModule } from "@nestjs/axios";
+import { RickApiClient } from "src/external/rickapi/rickapi.client";
 
 @Module({
   imports: [TypeOrmModule.forFeature([User]), HttpModule],
   controllers: [UsersController],
-  providers: [UsersService, PokeApiClient],
+  providers: [UsersService, RickApiClient],
 })
 export class UsersModule {}

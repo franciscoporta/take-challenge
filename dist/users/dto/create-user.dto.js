@@ -27,7 +27,7 @@ __decorate([
     __metadata("design:type", Number)
 ], createUserDto.prototype, "age", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: "Ids de pokemones", example: 1 }),
+    (0, swagger_1.ApiProperty)({ description: "Ids de rick", example: 1 }),
     __metadata("design:type", Array)
-], createUserDto.prototype, "pokemonIds", void 0);
+], createUserDto.prototype, "rickIds", void 0);
 //# sourceMappingURL=create-user.dto.js.map

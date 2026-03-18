@@ -12,7 +12,6 @@ const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const users_module_1 = require("./users/users.module");
 const typeorm_1 = require("@nestjs/typeorm");
-const pokemon_module_1 = require("./pokemon/pokemon.module");
 const config_1 = require("@nestjs/config");
 let AppModule = class AppModule {
 };
@@ -33,7 +32,6 @@ exports.AppModule = AppModule = __decorate([
                 migrationsRun: true,
             }),
             users_module_1.UsersModule,
-            pokemon_module_1.PokemonModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

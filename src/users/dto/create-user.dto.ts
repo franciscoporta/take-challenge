@@ -10,6 +10,6 @@ export class createUserDto {
   @ApiProperty({ description: "Edad del usuario", example: 25 })
   age: number;
 
-  @ApiProperty({ description: "Ids de pokemones", example: 1 })
-  pokemonIds: number[];
+  @ApiProperty({ description: "Ids de rick", example: 1 })
+  rickIds: number[];
 }

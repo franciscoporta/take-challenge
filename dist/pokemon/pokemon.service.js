@@ -9,21 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PokemonService = void 0;
+exports.RickService = void 0;
 const common_1 = require("@nestjs/common");
-const pokeapi_client_1 = require("../external/pokeapi/pokeapi.client");
-let PokemonService = class PokemonService {
-    constructor(pokeApi) {
-        this.pokeApi = pokeApi;
+const rickapi_client_1 = require("../external/rickapi/rickapi.client");
+let RickService = class RickService {
+    constructor(rickApi) {
+        this.rickApi = rickApi;
     }
     async findAll() {
-        const pokemon = await this.pokeApi.getPokemon();
-        return pokemon;
+        const rick = await this.rickApi.getRick();
+        return rick;
     }
 };
-exports.PokemonService = PokemonService;
-exports.PokemonService = PokemonService = __decorate([
+exports.RickService = RickService;
+exports.RickService = RickService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [pokeapi_client_1.PokeApiClient])
-], PokemonService);
+    __metadata("design:paramtypes", [rickapi_client_1.RickApiClient])
+], RickService);
 //# sourceMappingURL=pokemon.service.js.map

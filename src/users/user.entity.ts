@@ -19,7 +19,7 @@ export class User {
   @Column()
   age: number;
 
-  @ApiProperty({ description: "Ids de los pokemones", example: 1 })
-  @Column("simple-json")
-  pokemonIds: number[];
+  @ApiProperty({ description: "Ids de los rick", example: 1 })
+  @Column("json")
+  rickIds: number[];
 }

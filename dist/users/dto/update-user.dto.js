@@ -30,7 +30,7 @@ __decorate([
     __metadata("design:type", Number)
 ], updateUserDto.prototype, "age", void 0);
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ description: "Id del pokemon", example: 1 }),
+    (0, swagger_1.ApiPropertyOptional)({ description: "Id del rick", example: 1 }),
     __metadata("design:type", Array)
-], updateUserDto.prototype, "pokemonIds", void 0);
+], updateUserDto.prototype, "rickIds", void 0);
 //# sourceMappingURL=update-user.dto.js.map

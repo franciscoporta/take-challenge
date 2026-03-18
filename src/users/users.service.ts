@@ -3,14 +3,14 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { User } from "./user.entity";
 import { Repository } from "typeorm";
 import { updateUserDto } from "./dto/update-user.dto";
-import { PokeApiClient } from "src/external/pokeapi/pokeapi.client";
+import { RickApiClient } from "src/external/rickapi/rickapi.client";
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
-    private pokemonClient: PokeApiClient,
+    private rickClient: RickApiClient,
   ) {}
 
   async findAll(): Promise<User[]> {
@@ -19,15 +19,16 @@ export class UsersService {
 
   async findById(id: number) {
     if (!id) throw new Error("ID is required");
+
     const findUser = await this.userRepository.findOne({ where: { id } });
+
     if (!findUser) return null;
-    const findPokemonByUser = await this.pokemonClient.getPokemonById(
-      findUser.pokemonIds,
+
+    const findRickByUser = await this.rickClient.getRickDetailsById(
+      findUser.rickIds,
     );
-    console.log("logger:", findPokemonByUser);
-    return findUser
-      ? { ...findUser, pokemon: findPokemonByUser }
-      : "El usuario no existe";
+
+    return { ...findUser, rick: findRickByUser };
   }
 
   async create(user: Partial<User>) {
