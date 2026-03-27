@@ -9,7 +9,7 @@ import { RickApiClient } from "src/external/rickapi/rickapi.client";
 export class UsersService {
   constructor(
     @InjectRepository(User)
-    private userRepository: Repository<User>,
+    private readonly userRepository: Repository<User>,
     private rickClient: RickApiClient,
   ) {}
 
@@ -21,14 +21,16 @@ export class UsersService {
     if (!id) throw new Error("ID is required");
 
     const findUser = await this.userRepository.findOne({ where: { id } });
-
     if (!findUser) return null;
 
     const findRickByUser = await this.rickClient.getRickDetailsById(
       findUser.rickIds,
     );
-
     return { ...findUser, rick: findRickByUser };
+  }
+
+  async findOneByEmail(email: string) {
+    return await this.userRepository.findOneBy({ email });
   }
 
   async create(user: Partial<User>) {
