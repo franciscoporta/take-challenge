@@ -8,8 +8,10 @@ import { HttpModule } from "@nestjs/axios";
 import { RickApiClient } from "src/external/rickapi/rickapi.client";
 
 @Module({
+  //Esto se envia la entidad de USER creada con TypeOrm
   imports: [TypeOrmModule.forFeature([User]), HttpModule],
   controllers: [UsersController],
   providers: [UsersService, RickApiClient],
+  exports: [UsersService],
 })
 export class UsersModule {}
