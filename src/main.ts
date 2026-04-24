@@ -21,7 +21,6 @@ async function bootstrap() {
     .setTitle("Users Api")
     .setDescription("The users API description")
     .setVersion("1.0")
-    .addTag("users")
     .build();
   const documentFactory = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup("api", app, documentFactory);
@@ -29,4 +28,4 @@ async function bootstrap() {
 
   await app.listen(process.env.PORT ?? 3010);
 }
-bootstrap();
+void bootstrap();

@@ -1,0 +1,109 @@
+# =============================================================
+# DOCKER COMPOSE - Orquesta multiples contenedores
+# =============================================================
+# El Dockerfile define UN contenedor (tu app).
+# Docker Compose te permite definir VARIOS contenedores (tu app + base de datos)
+# y que se comuniquen entre si, con UN solo comando: docker compose up
+# =============================================================
+
+# "services" es donde defines cada contenedor que necesitas.
+services:
+  # --- SERVICIO 1: Base de datos MySQL ---
+  db:
+    # "image" indica que usamos una imagen ya hecha de Docker Hub (como un "paquete"
+    # pre-armado). mysql:8.0 es MySQL version 8.0, listo para usar.
+    image: mysql:8.0
+
+    # "container_name" le da un nombre amigable al contenedor.
+    # Sin esto, Docker le pone un nombre random.
+    container_name: mi-backend-db
+
+    # "restart: unless-stopped" hace que el contenedor se reinicie automaticamente
+    # si se cae, EXCEPTO si vos lo paraste manualmente con docker compose stop.
+    restart: unless-stopped
+
+    # "environment" define variables de entorno DENTRO del contenedor de MySQL.
+    # MySQL las lee al arrancar para configurarse.
+    environment:
+      # Password del usuario root de MySQL
+      MYSQL_ROOT_PASSWORD: root_password
+      # Nombre de la base de datos que MySQL crea automaticamente al arrancar
+      MYSQL_DATABASE: take_challenge
+
+    # "ports" mapea puertos de tu maquina al contenedor.
+    # Formato: "puerto_tu_maquina:puerto_contenedor"
+    # Esto te permite conectarte a MySQL desde tu maquina (ej: con DBeaver o MySQL Workbench)
+    # usando localhost:3306
+    ports:
+      - "3306:3306"
+
+    # "volumes" persiste los datos. Sin esto, cada vez que pares el contenedor
+    # PERDES todos los datos de la base. El volumen guarda los datos en tu disco
+    # para que sobrevivan aunque el contenedor se destruya.
+    # "mysql_data" es un nombre que le damos al volumen (definido abajo).
+    # "/var/lib/mysql" es donde MySQL guarda sus archivos dentro del contenedor.
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+    # "healthcheck" le dice a Docker como verificar que MySQL esta listo.
+    # Esto es importante porque tu app necesita que MySQL ya este funcionando
+    # antes de intentar conectarse.
+    healthcheck:
+      # mysqladmin ping verifica si MySQL responde
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      # Cada cuanto chequear (cada 10 segundos)
+      interval: 10s
+      # Cuanto esperar por respuesta antes de considerar que fallo
+      timeout: 5s
+      # Cuantas veces puede fallar antes de marcar el contenedor como "unhealthy"
+      retries: 5
+      # Cuanto esperar antes del primer chequeo (para darle tiempo a MySQL a arrancar)
+      start_period: 30s
+
+  # --- SERVICIO 2: Tu aplicacion NestJS ---
+  app:
+    # command: >
+    #   sh -c "npm run start:dev"
+    # "build" le dice a Docker Compose que construya la imagen usando tu Dockerfile.
+    # "context: ." significa "usa la carpeta actual como contexto de build".
+    # "dockerfile: Dockerfile" indica cual archivo usar (por defecto ya busca Dockerfile).
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: mi-backend-app
+
+    restart: unless-stopped
+
+    # Variables de entorno que tu app NestJS lee con ConfigService.
+    # Notar que HOST_DB es "db" (el nombre del servicio de arriba).
+    # Docker Compose crea una red interna donde los contenedores se encuentran
+    # por nombre de servicio. Entonces tu app se conecta a "db" y Docker
+    # lo resuelve a la IP interna del contenedor de MySQL.
+    environment:
+      POKEMON_API_URL: https://rickandmortyapi.com/api/character
+      HOST_DB: db
+      PORT_DB: 3306
+      USERNAME_DB: root
+      PASSWORD_DB: root_password
+      NAME_DATABASE: take_challenge
+
+    # Mapea el puerto 3010 de tu maquina al 3010 del contenedor.
+    # Asi podes acceder a tu API desde http://localhost:3010
+    ports:
+      - "3010:3010"
+
+    # "depends_on" controla el orden de arranque.
+    # Le dice a Docker: "no arranques mi app hasta que el servicio db
+    # pase su healthcheck (este saludable)".
+    # Sin esto, tu app podria intentar conectarse a MySQL antes de que este listo
+    # y fallar.
+    depends_on:
+      db:
+        condition: service_healthy
+
+# "volumes" a nivel raiz define los volumenes con nombre.
+# Es como "declarar" el volumen para que Docker lo administre.
+# Los datos se guardan en un lugar de tu disco que Docker maneja.
+volumes:
+  mysql_data:

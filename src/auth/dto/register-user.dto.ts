@@ -30,6 +30,7 @@ export class RegisterUserDto {
   @MinLength(6)
   password: string;
 
+  @ApiProperty({ description: "Edad del usuario", example: 0 })
   @IsNumber()
   age: number;
 

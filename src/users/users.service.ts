@@ -21,7 +21,7 @@ export class UsersService {
     if (!id) throw new Error("ID is required");
 
     const findUser = await this.userRepository.findOne({ where: { id } });
-    if (!findUser) return null;
+    if (!findUser) return "No se encontro el usuario o no existe";
 
     const findRickByUser = await this.rickClient.getRickDetailsById(
       findUser.rickIds,

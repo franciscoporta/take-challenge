@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { RegisterUserDto } from "src/auth/dto/register-user.dto";
-import { ApiOperation, ApiResponse } from "@nestjs/swagger";
+import { ApiBody, ApiOperation, ApiResponse } from "@nestjs/swagger";
 import { UserLoginDto } from "./dto/login-user.dto";
 
 @Controller({ path: "auth" })
