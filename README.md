@@ -8,6 +8,8 @@ or update. Every request must only accept this. `Content-type: application-json`
 
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/franciscoporta/take-challenge/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/franciscoporta/take-challenge/tree/main)
 
+[![Coverage Status](https://coveralls.io/repos/github/franciscoporta/take-challenge/badge.svg?branch=main)](https://coveralls.io/github/franciscoporta/take-challenge?branch=main)
+
 ### Features
 
 - Create new Users with their Pokemon Ids
