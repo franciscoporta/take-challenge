@@ -1,7 +1,7 @@
 version: 2.1
 orbs:
   node: circleci/node@5.0.2
-  coveralls: coveralls/coveralls@2.2.5
+
 
 jobs:
   build_and_test: # this can be any name you choose
@@ -11,11 +11,14 @@ jobs:
       - node/install-packages:
           pkg-manager: npm
       - run:
-          command: npm run test
-          name: Run tests
+          command: npm run build
+          name: Build application
       - run:
-          command: npm run build && coverall/upload
-          name: Install and make
+          command: npm run test:cov
+          name: Run tests with coverage
+      - run:
+          command: cat ./coverage/lcov.info | npx coveralls
+          name: Upload coverage to Coveralls
       - persist_to_workspace:
           root: ~/project
           paths:
