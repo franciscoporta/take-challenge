@@ -42,7 +42,7 @@ export class UsersController {
   @ApiResponse({ status: 200, description: "Usuario actualizado" })
   @ApiResponse({ status: 404, description: "Usuario no encontrado" })
   update(@Param("id") id: string, @Body() user: updateUserDto) {
-    return this.usersService.update(user, parseInt(id));
+    return this.usersService.update(parseInt(id), user);
   }
 
   @Delete(":id")
