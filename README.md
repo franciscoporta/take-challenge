@@ -4,6 +4,10 @@ You hace to build a microservice that exposes a REST api with two different
 tables, users and states. Both tables should be open to creation, deletion,
 or update. Every request must only accept this. `Content-type: application-json`
 
+### Badges
+
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/franciscoporta/take-challenge/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/franciscoporta/take-challenge/tree/main)
+
 ### Features
 
 - Create new Users with their Pokemon Ids
@@ -54,7 +58,7 @@ chmod 711 ./up_test.sh
 
 ## Route
 
-- : [![API Swagger] (https://localhost:3010/api)
+- [![API Swagger]](https://localhost:3010/api)
 
 ## Env vars should be defined
 
