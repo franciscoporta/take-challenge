@@ -1,6 +1,12 @@
-/node_modules
-.env
+# compiled output
 /dist
+/node_modules
 /build
-/coverage
+
+# Tests
+**/coverage
+test/coverage
 src/tests/docs/
+
+# dotenv environment variable files
+.env
