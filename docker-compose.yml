@@ -62,8 +62,8 @@ services:
 
   # --- SERVICIO 2: Tu aplicacion NestJS ---
   app:
-    # command: >
-    #   sh -c "npm run start:dev"
+    command: >
+      sh -c "npm run start:prod"
     # "build" le dice a Docker Compose que construya la imagen usando tu Dockerfile.
     # "context: ." significa "usa la carpeta actual como contexto de build".
     # "dockerfile: Dockerfile" indica cual archivo usar (por defecto ya busca Dockerfile).

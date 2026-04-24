@@ -61,4 +61,4 @@ EXPOSE 3010
 
 # "CMD" es el comando que se ejecuta cuando el contenedor arranca.
 # Es como si vos hicieras "node dist/main" en tu terminal.
-CMD ["node", "dist/main"]
+# CMD ["node", "dist/main"]
