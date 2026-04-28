@@ -31,6 +31,13 @@ chmod 711 ./up_dev.sh
 ./up_dev.sh
 ```
 
+## How run the Seed
+
+```
+chmod 711 ./up_seed.sh
+./up_seed.sh
+```
+
 ## How to run the tests
 
 ```
