@@ -19,9 +19,10 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "test:integration": "jest src/tests/integration/ --verbose --runInBand",
-    "migration:generate": "npx typeorm-ts-node-commonjs migration:generate src/migrations/migration -d src/data-source.ts",
+    "migration:generate": "npx typeorm-ts-node-commonjs migration:generate src/migrations/$npm_config_name -d src/data-source.ts",
     "migration:run": "npx typeorm-ts-node-commonjs migration:run -d src/data-source.ts",
-    "migration:revert": "npx typeorm-ts-node-commonjs migration:revert -d src/data-source.ts"
+    "migration:revert": "npx typeorm-ts-node-commonjs migration:revert -d src/data-source.ts",
+    "seed": "npx ts-node -r tsconfig-paths/register src/seed-migrations/seed.ts"
   },
   "dependencies": {
     "@nestjs/axios": "^4.0.1",
@@ -53,6 +54,7 @@
     "@typescript-eslint/eslint-plugin": "^8.56.1",
     "@typescript-eslint/parser": "^8.56.1",
     "better-sqlite3": "^12.8.0",
+    "coveralls": "^3.1.1",
     "eslint": "^9.39.4",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.5",
@@ -77,14 +79,11 @@
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "collectCoverageFrom": [
-      "**/*.(t|j)s",
-      "!**/migrations/**",
+      "**/*.(t|j)s", "!**/migrations/**",
       "!**/tests/docs/**",
       "!**/database/**",
       "!**/main.ts",
       "!**/*.module.ts",
-      "!**/*.entity.ts",
-      "!**/*.dto.ts",
       "!**/data-source.ts"
     ],
     "coverageDirectory": "../coverage",
